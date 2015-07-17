@@ -1108,4 +1108,14 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
         '</div>'+
     '</span>';
 	$templateCache.put( 'isteven-multi-select.htm' , template );
+    //adds detection for when user clicks outside the widget to close it
+    $('body').on('click', function(event) {
+        var multiSelects = $(event.currentTarget).find('[isteven-multi-select]');
+        multiSelects.each(function(index, el) {
+            var multiSelect = $(el);
+            var targeted = multiSelect.find(event.target).andSelf().is(event.target);
+            if(!targeted)
+            multiSelect.find('.checkboxLayer.show').removeClass('show');
+        });
+    });
 }]); 
